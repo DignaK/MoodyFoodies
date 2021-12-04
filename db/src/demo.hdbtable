@@ -1,0 +1,4 @@
+COLUMN TABLE "demo" (
+    ID integer,
+    "NAME" NVARCHAR(50)
+)
