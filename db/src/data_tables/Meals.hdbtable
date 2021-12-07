@@ -1,0 +1,5 @@
+COLUMN TABLE "Meals" (
+    "MEAL_ID" INTEGER unique not null COMMENT 'Meal ID',
+    "MEAL_TYPE" NVARCHAR(9) COMMENT 'Meal type',
+    PRIMARY KEY ("MEAL_ID")
+)

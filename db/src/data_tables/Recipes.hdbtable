@@ -1,0 +1,18 @@
+COLUMN TABLE "Recipes" (
+    "REC_ID" INTEGER unique not null COMMENT 'Recipe ID',
+    "REC_TITLE" NVARCHAR(60) COMMENT 'Recipe title',
+    "REC_SUBTITLE" NVARCHAR(40) COMMENT 'Recipe subtitle',
+    "SERVINGS" INTEGER COMMENT 'Recipe servings',
+    "YIELD_UNIT" NVARCHAR(19) COMMENT 'Recipe yield unit',
+    "PREP_MIN" INTEGER COMMENT 'Recipe prep time in minutes',
+    "COOK_MIN" INTEGER COMMENT 'Recipe cooking time in minutes',
+    "STND_MIN" INTEGER COMMENT 'Recipe stnd time in minutes',
+    "REC_SOURCE" NVARCHAR(60) COMMENT 'Recipe source',
+    "REC_INTRO" NVARCHAR(180) COMMENT 'Recipe intro',
+    "REC_DIRECTIONS" NVARCHAR(1100) COMMENT 'Recipe directions',
+    "REC_COUNTRY_CODE" NVARCHAR(2) COMMENT 'Recipe country code',
+    "REC_WINE_ID" INTEGER COMMENT 'Wine ID for Recipe',
+    "REC_MEAL_ID" INTEGER COMMENT 'Meal ID for Recipe',
+    "REC_AUTHOR_ID" INTEGER COMMENT 'Author ID for Recipe',
+    PRIMARY KEY ("REC_ID")
+)

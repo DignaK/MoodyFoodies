@@ -1,0 +1,7 @@
+COLUMN TABLE "Ingredients" (
+    "INGR_ID" INTEGER  unique not null COMMENT 'Ingredient ID',
+    "INGR_CATEGORY" NVARCHAR(30) COMMENT 'Ingredient category',
+    "INGR_NAME" NVARCHAR(40) COMMENT 'Ingredient name',
+    "INGR_PLURAL" NVARCHAR(5) COMMENT 'Ingredient plural',
+    PRIMARY KEY ("INGR_ID")
+)

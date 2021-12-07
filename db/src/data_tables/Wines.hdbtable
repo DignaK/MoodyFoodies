@@ -1,0 +1,11 @@
+COLUMN TABLE "Wines" (
+    "WINE_ID" INTEGER  unique not null COMMENT 'Wine ID',
+    "WINE_NAME" NVARCHAR(60) COMMENT 'Wine name',
+    "WINE_CATEGORY" NVARCHAR(14) COMMENT 'Wine category',
+    "GRAPES" NVARCHAR(30) COMMENT 'Wine grapes',
+    "WINE_PRICE_USD" DECIMAL(15,2) COMMENT 'Wine price in USD',
+    "RATING" INTEGER  COMMENT 'Wine rating',
+    "BRAND" NVARCHAR(30) COMMENT 'Wine brand',
+    "WINE_COUNTRY_CODE" NVARCHAR(2) COMMENT 'Wine country code',
+    PRIMARY KEY ("WINE_ID")
+)

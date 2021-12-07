@@ -1,0 +1,11 @@
+COLUMN TABLE "Quantity" (
+    "QTY_ID" INTEGER unique not null COMMENT 'Quantity ID',
+    "QTY_REC_ID" INTEGER COMMENT 'Recipe ID for Quantity',
+    "QTY_INGR_ID" INTEGER COMMENT 'Ingredient ID for Quantity',
+    "QTY_MAX" INTEGER COMMENT 'Max quantity',
+    "QTY_MIN" INTEGER COMMENT 'Min quantity',
+    "QTY_UNIT" NVARCHAR(18) COMMENT 'Unit for Quantity',
+    "QTY_PREP" NVARCHAR(40) COMMENT 'Preparation for Quantity',
+    "QTY_OPTION" NVARCHAR(5) COMMENT 'Optional for Quantity (T/F)',
+    PRIMARY KEY ("QTY_ID")
+)

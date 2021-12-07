@@ -1,0 +1,8 @@
+COLUMN TABLE "Authors" (
+    "AUTHOR_ID" INTEGER  unique not null COMMENT 'Author ID',
+    "AUTHOR_NAME" NVARCHAR(12) COMMENT 'Recipe author name',
+    "AUTHOR_SURNAME" NVARCHAR(15) COMMENT 'Recipe author surname',
+    "AUTHOR_EMAIL" NVARCHAR(40) COMMENT 'Recipe author e-mail',
+    "AUTHOR_PHONE" NVARCHAR(19) COMMENT 'Recipe author phone',
+    PRIMARY KEY ("AUTHOR_ID")
+)

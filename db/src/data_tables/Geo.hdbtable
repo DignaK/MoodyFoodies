@@ -1,0 +1,15 @@
+COLUMN TABLE "Geo" (
+    "COUNTRY" NVARCHAR(50) COMMENT 'Country',
+    "COUNTRY_CODE" NVARCHAR(2) unique not null COMMENT 'Country code alpha-2',
+    "ALPHA3_CODE" NVARCHAR(3) COMMENT 'Country code alpha-3',
+    "NUM_CODE" INTEGER COMMENT 'Numeric country code',
+    "LAT" NVARCHAR(20) COMMENT 'Latitude',
+    "LONG" NVARCHAR(20) COMMENT 'Longitude',
+    "REGION" NVARCHAR(8) COMMENT 'Region',
+    "SUB_REGION" NVARCHAR(40) COMMENT 'Sub-region',
+    "INTM_REGION" NVARCHAR(15) COMMENT 'Intermediate region',
+    "REG_CODE" INTEGER COMMENT 'Region code',
+    "SUB_REG_CODE" INTEGER COMMENT 'Sub-region code',
+    "INTM_REG_CODE" INTEGER COMMENT 'Intermediate region code',
+    PRIMARY KEY ("COUNTRY_CODE")
+)

@@ -1,0 +1,7 @@
+COLUMN TABLE "Prices" (
+    "PRICES_INGR_ID" INTEGER  unique not null COMMENT 'Ingredient ID for Prices',
+    "PRICE_USD" DECIMAL(15,2) COMMENT 'Ingredient price in USD',
+    "STORE" NVARCHAR(13) COMMENT 'Store for Ingredient prices',
+    "LOCAL_PRICE_USD" DECIMAL(15,2) COMMENT 'Ingredient local price converted to USD',
+    PRIMARY KEY ("PRICES_INGR_ID")
+)
