@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Nutrition_dimension" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Nutrition_dimension"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Nutrition">
+    <resourceUri>Nutrition</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Nutrition">
+  <attributes>
+    <attribute id="N_REC_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe ID for Nutrition"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_REC_ID"/>
+    </attribute>
+    <attribute id="N_PROTEIN" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Protein"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_PROTEIN"/>
+    </attribute>
+    <attribute id="N_CARBO" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Carbohydrates"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_CARBO"/>
+    </attribute>
+    <attribute id="N_ALCO" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Alcohol"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_ALCO"/>
+    </attribute>
+    <attribute id="N_FAT_TOTAL" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Total Fat"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_FAT_TOTAL"/>
+    </attribute>
+    <attribute id="N_FAT_SAT" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Saturated Fat"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_FAT_SAT"/>
+    </attribute>
+    <attribute id="N_CHOL" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Cholesterol"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_CHOL"/>
+    </attribute>
+    <attribute id="N_SODIUM" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Sodium"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_SODIUM"/>
+    </attribute>
+    <attribute id="N_IRON" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Iron"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_IRON"/>
+    </attribute>
+    <attribute id="N_VIT_C" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Vitamin C"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_VIT_C"/>
+    </attribute>
+    <attribute id="N_VIT_A" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Vitamin A"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_VIT_A"/>
+    </attribute>
+    <attribute id="N_FIBER" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: Fiber"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_FIBER"/>
+    </attribute>
+    <attribute id="N_PCNT_CAL_CARB" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: precentage of calories Carbohydrates"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_CARB"/>
+    </attribute>
+    <attribute id="N_PCNT_CAL_FAT" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: precentage of calories Fat"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_FAT"/>
+    </attribute>
+    <attribute id="N_PCNT_CAL_PROT" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: precentage of calories Protein"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_PROT"/>
+    </attribute>
+    <attribute id="N_CAL" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Nutrition: calories"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_CAL"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

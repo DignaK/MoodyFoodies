@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="_RECIPES_INGREDIENTS_star" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="_RECIPES_INGREDIENTS_star"/>
+<localVariables/>
+<variableMappings/>
+<dataSources/>
+<calculationViews/>
+
+<logicalModel>
+  <attributes/>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="Authors_dimension"/>
+    <logicalJoin associatedObjectUri="Geo_dimension"/>
+    <logicalJoin associatedObjectUri="Ingredients_dimension"/>
+    <logicalJoin associatedObjectUri="Meals_dimension"/>
+    <logicalJoin associatedObjectUri="Nutrition_dimension"/>
+    <logicalJoin associatedObjectUri="Prices_dimension"/>
+    <logicalJoin associatedObjectUri="Quantity_dimension"/>
+    <logicalJoin associatedObjectUri="Recipes_dimension"/>
+    <logicalJoin associatedObjectUri="Wines_dimension">
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape modelObjectName="Authors_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="611" y="304"/>
+      <rectangleSize width="193"/>
+    </shape>
+    <shape modelObjectName="Geo_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="870" y="454"/>
+      <rectangleSize width="178"/>
+    </shape>
+    <shape modelObjectName="Ingredients_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="1658" y="27"/>
+      <rectangleSize width="195"/>
+    </shape>
+    <shape modelObjectName="Meals_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="620" y="511"/>
+      <rectangleSize width="164"/>
+    </shape>
+    <shape modelObjectName="Nutrition_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="611" y="-65"/>
+      <rectangleSize width="194"/>
+    </shape>
+    <shape modelObjectName="Prices_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="1667" y="163"/>
+      <rectangleSize width="191"/>
+    </shape>
+    <shape modelObjectName="Quantity_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="1247" y="93"/>
+      <rectangleSize width="179"/>
+    </shape>
+    <shape modelObjectName="Recipes_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="865" y="46"/>
+      <rectangleSize width="207"/>
+    </shape>
+    <shape modelObjectName="Wines_dimension" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="1124" y="454"/>
+      <rectangleSize width="212"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

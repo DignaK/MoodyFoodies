@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Recipes_dimension" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Recipes_dimension"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Recipes">
+    <resourceUri>Recipes</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Recipes">
+  <attributes>
+    <attribute id="REC_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe ID"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_ID"/>
+    </attribute>
+    <attribute id="REC_TITLE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe title"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_TITLE"/>
+    </attribute>
+    <attribute id="REC_SUBTITLE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe subtitle"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_SUBTITLE"/>
+    </attribute>
+    <attribute id="SERVINGS" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe servings"/>
+      <keyMapping columnObjectName="Recipes" columnName="SERVINGS"/>
+    </attribute>
+    <attribute id="YIELD_UNIT" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe yield unit"/>
+      <keyMapping columnObjectName="Recipes" columnName="YIELD_UNIT"/>
+    </attribute>
+    <attribute id="PREP_MIN" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe prep time in minutes"/>
+      <keyMapping columnObjectName="Recipes" columnName="PREP_MIN"/>
+    </attribute>
+    <attribute id="COOK_MIN" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe cooking time in minutes"/>
+      <keyMapping columnObjectName="Recipes" columnName="COOK_MIN"/>
+    </attribute>
+    <attribute id="REC_SOURCE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe source"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_SOURCE"/>
+    </attribute>
+    <attribute id="REC_INTRO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe intro"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_INTRO"/>
+    </attribute>
+    <attribute id="REC_DIRECTIONS" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe directions"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_DIRECTIONS"/>
+    </attribute>
+    <attribute id="REC_COUNTRY_CODE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe country code"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_COUNTRY_CODE"/>
+    </attribute>
+    <attribute id="REC_WINE_ID" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine ID for Recipe"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_WINE_ID"/>
+    </attribute>
+    <attribute id="REC_MEAL_ID" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Meal ID for Recipe"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_MEAL_ID"/>
+    </attribute>
+    <attribute id="REC_AUTHOR_ID" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Author ID for Recipe"/>
+      <keyMapping columnObjectName="Recipes" columnName="REC_AUTHOR_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>
