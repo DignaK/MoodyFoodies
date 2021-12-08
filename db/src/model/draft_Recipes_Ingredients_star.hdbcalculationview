@@ -1,0 +1,1181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="draft_Recipes_Ingredients_star" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="_RECIPES_INGREDIENTS_star"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Ingredients_dimension">
+    <resourceUri>Ingredients_dimension</resourceUri>
+  </DataSource>
+  <DataSource id="Prices_cube">
+    <resourceUri>Prices_cube</resourceUri>
+  </DataSource>
+  <DataSource id="Geo_dimension">
+    <resourceUri>Geo_dimension</resourceUri>
+  </DataSource>
+  <DataSource id="Wines_cube">
+    <resourceUri>Wines_cube</resourceUri>
+  </DataSource>
+  <DataSource id="Meals_dimension">
+    <resourceUri>Meals_dimension</resourceUri>
+  </DataSource>
+  <DataSource id="Authors_dimension">
+    <resourceUri>Authors_dimension</resourceUri>
+  </DataSource>
+  <DataSource id="Nutrition_cube">
+    <resourceUri>Nutrition_cube</resourceUri>
+  </DataSource>
+  <DataSource id="Recipes_cube">
+    <resourceUri>Recipes_cube</resourceUri>
+  </DataSource>
+  <DataSource id="Quantity_cube">
+    <resourceUri>Quantity_cube</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Ingredients">
+    <viewAttributes>
+      <viewAttribute id="INGR_ID"/>
+      <viewAttribute id="INGR_CATEGORY"/>
+      <viewAttribute id="INGR_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Ingredients_dimension"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Prices">
+    <viewAttributes>
+      <viewAttribute id="PRICES_INGR_ID"/>
+      <viewAttribute id="PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="STORE"/>
+      <viewAttribute id="LOCAL_PRICE_USD" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Prices_cube"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Ingredients_w_Prices" cardinality="C1_1" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="INGR_ID" aggregationType="sum"/>
+      <viewAttribute id="INGR_CATEGORY"/>
+      <viewAttribute id="INGR_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Ingredients">
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_ID" source="INGR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_CATEGORY" source="INGR_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_NAME" source="INGR_NAME"/>
+    </input>
+    <input node="Prices">
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_ID" source="PRICES_INGR_ID"/>
+    </input>
+    <joinAttribute name="INGR_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Geo">
+    <viewAttributes>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="COUNTRY_CODE"/>
+      <viewAttribute id="LAT"/>
+      <viewAttribute id="LONG"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="SUB_REGION"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Geo_dimension"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Wines">
+    <viewAttributes>
+      <viewAttribute id="WINE_ID"/>
+      <viewAttribute id="WINE_NAME"/>
+      <viewAttribute id="WINE_CATEGORY"/>
+      <viewAttribute id="GRAPES"/>
+      <viewAttribute id="WINE_PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="RATING" aggregationType="sum"/>
+      <viewAttribute id="BRAND"/>
+      <viewAttribute id="WINE_COUNTRY_CODE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Wines_cube"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Wines_w_geo" cardinality="C1_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="WINE_NAME"/>
+      <viewAttribute id="WINE_CATEGORY"/>
+      <viewAttribute id="GRAPES"/>
+      <viewAttribute id="WINE_PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="RATING" aggregationType="sum"/>
+      <viewAttribute id="BRAND"/>
+      <viewAttribute id="WINE_COUNTRY_CODE"/>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="LAT"/>
+      <viewAttribute id="LONG"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="SUB_REGION"/>
+      <viewAttribute hidden="true" id="JOIN$COUNTRY_CODE$WINE_COUNTRY_CODE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Geo">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAT" source="LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LONG" source="LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUB_REGION" source="SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY_CODE$WINE_COUNTRY_CODE" source="COUNTRY_CODE"/>
+    </input>
+    <input node="Wines">
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_ID" source="WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_NAME" source="WINE_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_CATEGORY" source="WINE_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GRAPES" source="GRAPES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_PRICE_USD" source="WINE_PRICE_USD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="RATING" source="RATING"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BRAND" source="BRAND"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_COUNTRY_CODE" source="WINE_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY_CODE$WINE_COUNTRY_CODE" source="WINE_COUNTRY_CODE"/>
+    </input>
+    <joinAttribute name="JOIN$COUNTRY_CODE$WINE_COUNTRY_CODE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Meals">
+    <viewAttributes>
+      <viewAttribute id="MEAL_ID"/>
+      <viewAttribute id="MEAL_TYPE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Meals_dimension"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Authors">
+    <viewAttributes>
+      <viewAttribute id="AUTHOR_ID"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Authors_dimension"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Nutrition">
+    <viewAttributes>
+      <viewAttribute id="N_REC_ID"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Nutrition_cube"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Recipes">
+    <viewAttributes>
+      <viewAttribute id="REC_ID"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID"/>
+      <viewAttribute id="REC_MEAL_ID"/>
+      <viewAttribute id="REC_AUTHOR_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Recipes_cube"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Quantity">
+    <viewAttributes>
+      <viewAttribute id="QTY_ID"/>
+      <viewAttribute id="QTY_REC_ID"/>
+      <viewAttribute id="QTY_INGR_ID"/>
+      <viewAttribute id="QTY_MAX" aggregationType="sum"/>
+      <viewAttribute id="QTY_MIN" aggregationType="sum"/>
+      <viewAttribute id="QTY_UNIT"/>
+      <viewAttribute id="QTY_PREP"/>
+      <viewAttribute id="QTY_OPTION"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Quantity_cube"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Recipes_w_atributes_1" cardinality="C1_1" joinType="inner" multiJoinNode="Recipes_w_atributes" multiJoinCentralTable="Recipes" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Recipes">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+    </input>
+    <input node="Nutrition">
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="N_REC_ID"/>
+    </input>
+    <joinAttribute name="REC_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Recipes_w_atributes_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Recipes_w_atributes" multiJoinCentralTable="Recipes" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Recipes_w_atributes_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+    </input>
+    <input node="Authors">
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_NAME" source="AUTHOR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_SURNAME" source="AUTHOR_SURNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_EMAIL" source="AUTHOR_EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_PHONE" source="AUTHOR_PHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="AUTHOR_ID"/>
+    </input>
+    <joinAttribute name="REC_AUTHOR_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Recipes_w_atributes_3" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Recipes_w_atributes" multiJoinCentralTable="Recipes" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="MEAL_TYPE"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Recipes_w_atributes_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_NAME" source="AUTHOR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_SURNAME" source="AUTHOR_SURNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_EMAIL" source="AUTHOR_EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_PHONE" source="AUTHOR_PHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+    </input>
+    <input node="Meals">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MEAL_TYPE" source="MEAL_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="MEAL_ID"/>
+    </input>
+    <joinAttribute name="REC_MEAL_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Recipes_w_atributes_4" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Recipes_w_atributes" multiJoinCentralTable="Recipes" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_COUNTRY"/>
+      <viewAttribute id="REC_LAT"/>
+      <viewAttribute id="REC_LONG"/>
+      <viewAttribute id="REC_REGION"/>
+      <viewAttribute id="REC_SUB_REGION"/>
+      <viewAttribute id="MEAL_TYPE"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Recipes_w_atributes_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MEAL_TYPE" source="MEAL_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_NAME" source="AUTHOR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_SURNAME" source="AUTHOR_SURNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_EMAIL" source="AUTHOR_EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_PHONE" source="AUTHOR_PHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+    </input>
+    <input node="Geo">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LAT" source="LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LONG" source="LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUB_REGION" source="SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="COUNTRY_CODE"/>
+    </input>
+    <joinAttribute name="REC_COUNTRY_CODE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Recipes_w_atributes_5" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Recipes_w_atributes" multiJoinCentralTable="Recipes" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="WINE_NAME"/>
+      <viewAttribute id="WINE_CATEGORY"/>
+      <viewAttribute id="GRAPES"/>
+      <viewAttribute id="WINE_PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="RATING" aggregationType="sum"/>
+      <viewAttribute id="BRAND"/>
+      <viewAttribute id="WINE_COUNTRY_CODE"/>
+      <viewAttribute id="WINE_COUNTRY"/>
+      <viewAttribute id="WINE_LAT"/>
+      <viewAttribute id="WINE_LONG"/>
+      <viewAttribute id="WINE_REGION"/>
+      <viewAttribute id="WINE_SUB_REGION"/>
+      <viewAttribute id="REC_COUNTRY"/>
+      <viewAttribute id="REC_LAT"/>
+      <viewAttribute id="REC_LONG"/>
+      <viewAttribute id="REC_REGION"/>
+      <viewAttribute id="REC_SUB_REGION"/>
+      <viewAttribute id="MEAL_TYPE"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Recipes_w_atributes_4">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY" source="REC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LAT" source="REC_LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LONG" source="REC_LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_REGION" source="REC_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUB_REGION" source="REC_SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MEAL_TYPE" source="MEAL_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_NAME" source="AUTHOR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_SURNAME" source="AUTHOR_SURNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_EMAIL" source="AUTHOR_EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_PHONE" source="AUTHOR_PHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+    </input>
+    <input node="Wines_w_geo">
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_NAME" source="WINE_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_CATEGORY" source="WINE_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GRAPES" source="GRAPES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_PRICE_USD" source="WINE_PRICE_USD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="RATING" source="RATING"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BRAND" source="BRAND"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_COUNTRY_CODE" source="WINE_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_LAT" source="LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_LONG" source="LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_SUB_REGION" source="SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="WINE_ID"/>
+    </input>
+    <joinAttribute name="REC_WINE_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="Quantity" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="QTY_ID" aggregationType="sum"/>
+      <viewAttribute id="QTY_MAX" aggregationType="sum"/>
+      <viewAttribute id="QTY_MIN" aggregationType="sum"/>
+      <viewAttribute id="QTY_UNIT"/>
+      <viewAttribute id="QTY_PREP"/>
+      <viewAttribute id="QTY_OPTION"/>
+      <viewAttribute id="INGR_CATEGORY"/>
+      <viewAttribute id="INGR_NAME"/>
+      <viewAttribute id="INGR_ID" aggregationType="sum"/>
+      <viewAttribute id="QTY_REC_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Ingredients_w_Prices">
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_CATEGORY" source="INGR_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_NAME" source="INGR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_ID" source="INGR_ID"/>
+    </input>
+    <input node="Quantity">
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_ID" source="QTY_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_MAX" source="QTY_MAX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_MIN" source="QTY_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_UNIT" source="QTY_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_PREP" source="QTY_PREP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_OPTION" source="QTY_OPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_REC_ID" source="QTY_REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_ID" source="QTY_INGR_ID"/>
+    </input>
+    <joinAttribute name="INGR_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_1" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="Quantity" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="QTY_ID" aggregationType="sum"/>
+      <viewAttribute id="QTY_MAX" aggregationType="sum"/>
+      <viewAttribute id="QTY_MIN" aggregationType="sum"/>
+      <viewAttribute id="QTY_UNIT"/>
+      <viewAttribute id="QTY_PREP"/>
+      <viewAttribute id="QTY_OPTION"/>
+      <viewAttribute id="INGR_CATEGORY"/>
+      <viewAttribute id="INGR_NAME"/>
+      <viewAttribute id="INGR_ID" aggregationType="sum"/>
+      <viewAttribute id="QTY_REC_ID"/>
+      <viewAttribute id="REC_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_TITLE"/>
+      <viewAttribute id="REC_SUBTITLE"/>
+      <viewAttribute id="SERVINGS" aggregationType="sum"/>
+      <viewAttribute id="YIELD_UNIT"/>
+      <viewAttribute id="PREP_MIN" aggregationType="sum"/>
+      <viewAttribute id="COOK_MIN" aggregationType="sum"/>
+      <viewAttribute id="REC_SOURCE"/>
+      <viewAttribute id="REC_INTRO"/>
+      <viewAttribute id="REC_DIRECTIONS"/>
+      <viewAttribute id="REC_COUNTRY_CODE"/>
+      <viewAttribute id="REC_WINE_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_MEAL_ID" aggregationType="sum"/>
+      <viewAttribute id="REC_AUTHOR_ID" aggregationType="sum"/>
+      <viewAttribute id="WINE_NAME"/>
+      <viewAttribute id="WINE_CATEGORY"/>
+      <viewAttribute id="GRAPES"/>
+      <viewAttribute id="WINE_PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="RATING" aggregationType="sum"/>
+      <viewAttribute id="BRAND"/>
+      <viewAttribute id="WINE_COUNTRY_CODE"/>
+      <viewAttribute id="WINE_COUNTRY"/>
+      <viewAttribute id="WINE_LAT"/>
+      <viewAttribute id="WINE_LONG"/>
+      <viewAttribute id="WINE_REGION"/>
+      <viewAttribute id="WINE_SUB_REGION"/>
+      <viewAttribute id="REC_COUNTRY"/>
+      <viewAttribute id="REC_LAT"/>
+      <viewAttribute id="REC_LONG"/>
+      <viewAttribute id="REC_REGION"/>
+      <viewAttribute id="REC_SUB_REGION"/>
+      <viewAttribute id="MEAL_TYPE"/>
+      <viewAttribute id="AUTHOR_NAME"/>
+      <viewAttribute id="AUTHOR_SURNAME"/>
+      <viewAttribute id="AUTHOR_EMAIL"/>
+      <viewAttribute id="AUTHOR_PHONE"/>
+      <viewAttribute id="N_PROTEIN" aggregationType="sum"/>
+      <viewAttribute id="N_CARBO" aggregationType="sum"/>
+      <viewAttribute id="N_ALCO" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_TOTAL" aggregationType="sum"/>
+      <viewAttribute id="N_FAT_SAT" aggregationType="sum"/>
+      <viewAttribute id="N_CHOL" aggregationType="sum"/>
+      <viewAttribute id="N_SODIUM" aggregationType="sum"/>
+      <viewAttribute id="N_IRON" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_C" aggregationType="sum"/>
+      <viewAttribute id="N_VIT_A" aggregationType="sum"/>
+      <viewAttribute id="N_FIBER" aggregationType="sum"/>
+      <viewAttribute id="N_PCNT_CAL_CARB" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_FAT" aggregationType="max"/>
+      <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="max"/>
+      <viewAttribute id="N_CAL" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_1_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_ID" source="QTY_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_MAX" source="QTY_MAX"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_MIN" source="QTY_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_UNIT" source="QTY_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_PREP" source="QTY_PREP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_OPTION" source="QTY_OPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_CATEGORY" source="INGR_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_NAME" source="INGR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INGR_ID" source="INGR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_REC_ID" source="QTY_REC_ID"/>
+    </input>
+    <input node="Recipes_w_atributes_5">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="REC_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_TITLE" source="REC_TITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUBTITLE" source="REC_SUBTITLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SERVINGS" source="SERVINGS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD_UNIT" source="YIELD_UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PREP_MIN" source="PREP_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COOK_MIN" source="COOK_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SOURCE" source="REC_SOURCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_INTRO" source="REC_INTRO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_DIRECTIONS" source="REC_DIRECTIONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY_CODE" source="REC_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_WINE_ID" source="REC_WINE_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_MEAL_ID" source="REC_MEAL_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_AUTHOR_ID" source="REC_AUTHOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_NAME" source="WINE_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_CATEGORY" source="WINE_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GRAPES" source="GRAPES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_PRICE_USD" source="WINE_PRICE_USD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="RATING" source="RATING"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BRAND" source="BRAND"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_COUNTRY_CODE" source="WINE_COUNTRY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_COUNTRY" source="WINE_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_LAT" source="WINE_LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_LONG" source="WINE_LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_REGION" source="WINE_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WINE_SUB_REGION" source="WINE_SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_COUNTRY" source="REC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LAT" source="REC_LAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_LONG" source="REC_LONG"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_REGION" source="REC_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REC_SUB_REGION" source="REC_SUB_REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MEAL_TYPE" source="MEAL_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_NAME" source="AUTHOR_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_SURNAME" source="AUTHOR_SURNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_EMAIL" source="AUTHOR_EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AUTHOR_PHONE" source="AUTHOR_PHONE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PROTEIN" source="N_PROTEIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CARBO" source="N_CARBO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_ALCO" source="N_ALCO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_TOTAL" source="N_FAT_TOTAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FAT_SAT" source="N_FAT_SAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CHOL" source="N_CHOL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_SODIUM" source="N_SODIUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_IRON" source="N_IRON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_C" source="N_VIT_C"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_VIT_A" source="N_VIT_A"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_FIBER" source="N_FIBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_CARB" source="N_PCNT_CAL_CARB"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_FAT" source="N_PCNT_CAL_FAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_PCNT_CAL_PROT" source="N_PCNT_CAL_PROT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="N_CAL" source="N_CAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_REC_ID" source="REC_ID"/>
+    </input>
+    <joinAttribute name="QTY_REC_ID"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Join_1_2">
+  <attributes>
+    <attribute id="REC_TITLE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_TITLE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_TITLE"/>
+    </attribute>
+    <attribute id="REC_SUBTITLE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_SUBTITLE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_SUBTITLE"/>
+    </attribute>
+    <attribute id="YIELD_UNIT" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YIELD_UNIT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="YIELD_UNIT"/>
+    </attribute>
+    <attribute id="REC_SOURCE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_SOURCE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_SOURCE"/>
+    </attribute>
+    <attribute id="REC_INTRO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_INTRO"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_INTRO"/>
+    </attribute>
+    <attribute id="REC_DIRECTIONS" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_DIRECTIONS"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_DIRECTIONS"/>
+    </attribute>
+    <attribute id="REC_COUNTRY_CODE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_COUNTRY_CODE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_COUNTRY_CODE"/>
+    </attribute>
+    <attribute id="WINE_NAME" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_NAME"/>
+    </attribute>
+    <attribute id="WINE_CATEGORY" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_CATEGORY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_CATEGORY"/>
+    </attribute>
+    <attribute id="GRAPES" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="GRAPES"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="GRAPES"/>
+    </attribute>
+    <attribute id="BRAND" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BRAND"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="BRAND"/>
+    </attribute>
+    <attribute id="WINE_COUNTRY_CODE" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_COUNTRY_CODE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_COUNTRY_CODE"/>
+    </attribute>
+    <attribute id="WINE_COUNTRY" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_COUNTRY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_COUNTRY"/>
+    </attribute>
+    <attribute id="WINE_LAT" order="23" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_LAT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_LAT"/>
+    </attribute>
+    <attribute id="WINE_LONG" order="24" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_LONG"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_LONG"/>
+    </attribute>
+    <attribute id="WINE_REGION" order="25" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_REGION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_REGION"/>
+    </attribute>
+    <attribute id="WINE_SUB_REGION" order="26" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WINE_SUB_REGION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WINE_SUB_REGION"/>
+    </attribute>
+    <attribute id="REC_COUNTRY" order="27" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_COUNTRY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_COUNTRY"/>
+    </attribute>
+    <attribute id="REC_LAT" order="28" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_LAT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_LAT"/>
+    </attribute>
+    <attribute id="REC_LONG" order="29" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_LONG"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_LONG"/>
+    </attribute>
+    <attribute id="REC_REGION" order="30" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_REGION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_REGION"/>
+    </attribute>
+    <attribute id="REC_SUB_REGION" order="31" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REC_SUB_REGION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="REC_SUB_REGION"/>
+    </attribute>
+    <attribute id="MEAL_TYPE" order="32" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MEAL_TYPE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="MEAL_TYPE"/>
+    </attribute>
+    <attribute id="AUTHOR_NAME" order="33" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AUTHOR_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="AUTHOR_NAME"/>
+    </attribute>
+    <attribute id="AUTHOR_SURNAME" order="34" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AUTHOR_SURNAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="AUTHOR_SURNAME"/>
+    </attribute>
+    <attribute id="AUTHOR_EMAIL" order="35" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AUTHOR_EMAIL"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="AUTHOR_EMAIL"/>
+    </attribute>
+    <attribute id="AUTHOR_PHONE" order="36" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AUTHOR_PHONE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="AUTHOR_PHONE"/>
+    </attribute>
+    <attribute id="QTY_UNIT" order="55" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QTY_UNIT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="QTY_UNIT"/>
+    </attribute>
+    <attribute id="QTY_PREP" order="56" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QTY_PREP"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="QTY_PREP"/>
+    </attribute>
+    <attribute id="QTY_OPTION" order="57" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QTY_OPTION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="QTY_OPTION"/>
+    </attribute>
+    <attribute id="INGR_CATEGORY" order="58" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INGR_CATEGORY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="INGR_CATEGORY"/>
+    </attribute>
+    <attribute id="INGR_NAME" order="59" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INGR_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="INGR_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="REC_ID" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="REC_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="REC_ID"/>
+    </measure>
+    <measure id="SERVINGS" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SERVINGS"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="SERVINGS"/>
+    </measure>
+    <measure id="PREP_MIN" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="PREP_MIN"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="PREP_MIN"/>
+    </measure>
+    <measure id="COOK_MIN" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="COOK_MIN"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="COOK_MIN"/>
+    </measure>
+    <measure id="REC_WINE_ID" order="12" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="REC_WINE_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="REC_WINE_ID"/>
+    </measure>
+    <measure id="REC_MEAL_ID" order="13" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="REC_MEAL_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="REC_MEAL_ID"/>
+    </measure>
+    <measure id="REC_AUTHOR_ID" order="14" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="REC_AUTHOR_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="REC_AUTHOR_ID"/>
+    </measure>
+    <measure id="WINE_PRICE_USD" order="18" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="WINE_PRICE_USD"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="WINE_PRICE_USD"/>
+    </measure>
+    <measure id="RATING" order="19" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="RATING"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="RATING"/>
+    </measure>
+    <measure id="N_PROTEIN" order="37" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_PROTEIN"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_PROTEIN"/>
+    </measure>
+    <measure id="N_CARBO" order="38" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_CARBO"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_CARBO"/>
+    </measure>
+    <measure id="N_ALCO" order="39" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_ALCO"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_ALCO"/>
+    </measure>
+    <measure id="N_FAT_TOTAL" order="40" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_FAT_TOTAL"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_FAT_TOTAL"/>
+    </measure>
+    <measure id="N_FAT_SAT" order="41" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_FAT_SAT"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_FAT_SAT"/>
+    </measure>
+    <measure id="N_CHOL" order="42" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_CHOL"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_CHOL"/>
+    </measure>
+    <measure id="N_SODIUM" order="43" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_SODIUM"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_SODIUM"/>
+    </measure>
+    <measure id="N_IRON" order="44" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_IRON"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_IRON"/>
+    </measure>
+    <measure id="N_VIT_C" order="45" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_VIT_C"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_VIT_C"/>
+    </measure>
+    <measure id="N_VIT_A" order="46" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_VIT_A"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_VIT_A"/>
+    </measure>
+    <measure id="N_FIBER" order="47" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_FIBER"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_FIBER"/>
+    </measure>
+    <measure id="N_PCNT_CAL_CARB" order="48" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="N_PCNT_CAL_CARB"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_PCNT_CAL_CARB"/>
+    </measure>
+    <measure id="N_PCNT_CAL_FAT" order="49" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="N_PCNT_CAL_FAT"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_PCNT_CAL_FAT"/>
+    </measure>
+    <measure id="N_PCNT_CAL_PROT" order="50" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="N_PCNT_CAL_PROT"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_PCNT_CAL_PROT"/>
+    </measure>
+    <measure id="N_CAL" order="51" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="N_CAL"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="N_CAL"/>
+    </measure>
+    <measure id="QTY_ID" order="52" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QTY_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="QTY_ID"/>
+    </measure>
+    <measure id="QTY_MAX" order="53" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QTY_MAX"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="QTY_MAX"/>
+    </measure>
+    <measure id="QTY_MIN" order="54" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QTY_MIN"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="QTY_MIN"/>
+    </measure>
+    <measure id="INGR_ID" order="60" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="INGR_ID"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="INGR_ID"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="921" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Ingredients" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="1166" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Prices" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="1376" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Ingredients_w_Prices" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="1125" y="418"/>
+      <rectangleSize height="30" width="179"/>
+    </shape>
+    <shape modelObjectName="Ingredients" modelObjectNameSpace="Ingredients_w_Prices" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Prices" modelObjectNameSpace="Ingredients_w_Prices" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="148"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Geo" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="238" y="791"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Wines" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="983" y="791"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Wines_w_geo" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="956" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Geo" modelObjectNameSpace="Wines_w_geo" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="178"/>
+    </shape>
+    <shape modelObjectName="Wines" modelObjectNameSpace="Wines_w_geo" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="212"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Meals" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="746" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Authors" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="536" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Nutrition" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Recipes" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="326" y="631"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Quantity" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="850" y="391"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Recipes_w_atributes" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="486" y="391"/>
+      <rectangleSize height="30" width="227"/>
+    </shape>
+    <shape modelObjectName="Wines_w_geo" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="30" y="23"/>
+      <rectangleSize width="212"/>
+    </shape>
+  
+    <shape modelObjectName="Geo" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="540" y="17"/>
+      <rectangleSize width="178"/>
+    </shape>
+    <shape modelObjectName="Meals" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="554" y="189"/>
+      <rectangleSize width="150"/>
+    </shape>
+    <shape modelObjectName="Authors" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="540" y="303"/>
+      <rectangleSize width="193"/>
+    </shape>
+    <shape modelObjectName="Recipes" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="296" y="17"/>
+      <rectangleSize width="207"/>
+    </shape>
+    <shape modelObjectName="Nutrition" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_atributes">
+      <upperLeftCorner x="296" y="399"/>
+      <rectangleSize width="194"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="850" y="236"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Recipes_w_atributes_5" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape><shape><upperLeftCorner/><rectangleSize/></shape>
+    <shape modelObjectName="Ingredients_w_Prices" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="43" y="335"/>
+      <rectangleSize width="187"/>
+    </shape><shape><upperLeftCorner/><rectangleSize/></shape>
+    <shape modelObjectName="Quantity" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="355" y="43"/>
+      <rectangleSize width="159"/>
+    </shape>
+    <shape modelObjectName="Join_1_2" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
