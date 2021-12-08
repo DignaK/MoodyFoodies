@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Ingredients_dimension" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Ingredients_dimension"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Ingredients">
+    <resourceUri>Ingredients</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Ingredients">
+  <attributes>
+    <attribute id="INGR_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Ingredient ID"/>
+      <keyMapping columnObjectName="Ingredients" columnName="INGR_ID"/>
+    </attribute>
+    <attribute id="INGR_CATEGORY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Ingredient category"/>
+      <keyMapping columnObjectName="Ingredients" columnName="INGR_CATEGORY"/>
+    </attribute>
+    <attribute id="INGR_NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Ingredient name"/>
+      <keyMapping columnObjectName="Ingredients" columnName="INGR_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

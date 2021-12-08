@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Quantity_cube" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Quantity_cube"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Quantity">
+    <resourceUri>Quantity</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Quantity">
+  <attributes>
+    <attribute id="QTY_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Quantity ID"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_ID"/>
+    </attribute>
+    <attribute id="QTY_REC_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe ID for Quantity"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_REC_ID"/>
+    </attribute>
+    <attribute id="QTY_INGR_ID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Ingredient ID for Quantity"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_INGR_ID"/>
+    </attribute>
+    <attribute id="QTY_UNIT" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Unit for Quantity"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_UNIT"/>
+    </attribute>
+    <attribute id="QTY_PREP" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Preparation for Quantity"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_PREP"/>
+    </attribute>
+    <attribute id="QTY_OPTION" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Optional for Quantity (T/F)"/>
+      <keyMapping columnObjectName="Quantity" columnName="QTY_OPTION"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="QTY_MAX" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Max quantity"/>
+      <measureMapping columnObjectName="Quantity" columnName="QTY_MAX"/>
+    </measure>
+    <measure id="QTY_MIN" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Min quantity"/>
+      <measureMapping columnObjectName="Quantity" columnName="QTY_MIN"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

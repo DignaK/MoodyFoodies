@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Geo_dimension" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Geo_dimension"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Geo">
+    <resourceUri>Geo</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Geo">
+  <attributes>
+    <attribute id="COUNTRY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country"/>
+      <keyMapping columnObjectName="Geo" columnName="COUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_CODE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country code alpha-2"/>
+      <keyMapping columnObjectName="Geo" columnName="COUNTRY_CODE"/>
+    </attribute>
+    <attribute id="LAT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Latitude"/>
+      <keyMapping columnObjectName="Geo" columnName="LAT"/>
+    </attribute>
+    <attribute id="LONG" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Longitude"/>
+      <keyMapping columnObjectName="Geo" columnName="LONG"/>
+    </attribute>
+    <attribute id="REGION" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Region"/>
+      <keyMapping columnObjectName="Geo" columnName="REGION"/>
+    </attribute>
+    <attribute id="SUB_REGION" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Sub-region"/>
+      <keyMapping columnObjectName="Geo" columnName="SUB_REGION"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

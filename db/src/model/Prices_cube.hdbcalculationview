@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Prices_cube" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Prices_cube"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Prices">
+    <resourceUri>Prices</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Prices">
+  <attributes>
+    <attribute id="PRICES_INGR_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Ingredient ID for Prices"/>
+      <keyMapping columnObjectName="Prices" columnName="PRICES_INGR_ID"/>
+    </attribute>
+    <attribute id="STORE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Store for Ingredient prices"/>
+      <keyMapping columnObjectName="Prices" columnName="STORE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="PRICE_USD" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Ingredient price in USD"/>
+      <measureMapping columnObjectName="Prices" columnName="PRICE_USD"/>
+    </measure>
+    <measure id="LOCAL_PRICE_USD" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Ingredient local price converted to USD"/>
+      <measureMapping columnObjectName="Prices" columnName="LOCAL_PRICE_USD"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

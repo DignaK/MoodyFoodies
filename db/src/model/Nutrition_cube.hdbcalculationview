@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Nutrition_cube" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Nutrition_cube"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Nutrition">
+    <resourceUri>Nutrition</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Nutrition">
+  <attributes>
+    <attribute id="N_REC_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe ID for Nutrition"/>
+      <keyMapping columnObjectName="Nutrition" columnName="N_REC_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="N_PROTEIN" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Protein"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_PROTEIN"/>
+    </measure>
+    <measure id="N_CARBO" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Carbohydrates"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_CARBO"/>
+    </measure>
+    <measure id="N_ALCO" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Alcohol"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_ALCO"/>
+    </measure>
+    <measure id="N_FAT_TOTAL" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Total Fat"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_FAT_TOTAL"/>
+    </measure>
+    <measure id="N_FAT_SAT" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Saturated Fat"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_FAT_SAT"/>
+    </measure>
+    <measure id="N_CHOL" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Cholesterol"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_CHOL"/>
+    </measure>
+    <measure id="N_SODIUM" order="8" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Sodium"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_SODIUM"/>
+    </measure>
+    <measure id="N_IRON" order="9" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Iron"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_IRON"/>
+    </measure>
+    <measure id="N_VIT_C" order="10" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Vitamin C"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_VIT_C"/>
+    </measure>
+    <measure id="N_VIT_A" order="11" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Vitamin A"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_VIT_A"/>
+    </measure>
+    <measure id="N_FIBER" order="12" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: Fiber"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_FIBER"/>
+    </measure>
+    <measure id="N_PCNT_CAL_CARB" order="13" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Nutrition: precentage of calories Carbohydrates"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_CARB"/>
+    </measure>
+    <measure id="N_PCNT_CAL_FAT" order="14" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Nutrition: precentage of calories Fat"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_FAT"/>
+    </measure>
+    <measure id="N_PCNT_CAL_PROT" order="15" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Nutrition: precentage of calories Protein"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_PCNT_CAL_PROT"/>
+    </measure>
+    <measure id="N_CAL" order="16" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Nutrition: calories"/>
+      <measureMapping columnObjectName="Nutrition" columnName="N_CAL"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

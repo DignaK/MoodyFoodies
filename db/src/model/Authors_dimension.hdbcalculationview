@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Authors_dimension" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Authors_dimension"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Authors">
+    <resourceUri>Authors</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Authors">
+  <attributes>
+    <attribute id="AUTHOR_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Author ID"/>
+      <keyMapping columnObjectName="Authors" columnName="AUTHOR_ID"/>
+    </attribute>
+    <attribute id="AUTHOR_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe author name"/>
+      <keyMapping columnObjectName="Authors" columnName="AUTHOR_NAME"/>
+    </attribute>
+    <attribute id="AUTHOR_SURNAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe author surname"/>
+      <keyMapping columnObjectName="Authors" columnName="AUTHOR_SURNAME"/>
+    </attribute>
+    <attribute id="AUTHOR_EMAIL" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe author e-mail"/>
+      <keyMapping columnObjectName="Authors" columnName="AUTHOR_EMAIL"/>
+    </attribute>
+    <attribute id="AUTHOR_PHONE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Recipe author phone"/>
+      <keyMapping columnObjectName="Authors" columnName="AUTHOR_PHONE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

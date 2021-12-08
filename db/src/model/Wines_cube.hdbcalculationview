@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Wines_cube" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Wines_cube"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Wines">
+    <resourceUri>Wines</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="Wines">
+  <attributes>
+    <attribute id="WINE_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine ID"/>
+      <keyMapping columnObjectName="Wines" columnName="WINE_ID"/>
+    </attribute>
+    <attribute id="WINE_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine name"/>
+      <keyMapping columnObjectName="Wines" columnName="WINE_NAME"/>
+    </attribute>
+    <attribute id="WINE_CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine category"/>
+      <keyMapping columnObjectName="Wines" columnName="WINE_CATEGORY"/>
+    </attribute>
+    <attribute id="GRAPES" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine grapes"/>
+      <keyMapping columnObjectName="Wines" columnName="GRAPES"/>
+    </attribute>
+    <attribute id="BRAND" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine brand"/>
+      <keyMapping columnObjectName="Wines" columnName="BRAND"/>
+    </attribute>
+    <attribute id="WINE_COUNTRY_CODE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Wine country code"/>
+      <keyMapping columnObjectName="Wines" columnName="WINE_COUNTRY_CODE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="WINE_PRICE_USD" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Wine price in USD"/>
+      <measureMapping columnObjectName="Wines" columnName="WINE_PRICE_USD"/>
+    </measure>
+    <measure id="RATING" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Wine rating"/>
+      <measureMapping columnObjectName="Wines" columnName="RATING"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>
