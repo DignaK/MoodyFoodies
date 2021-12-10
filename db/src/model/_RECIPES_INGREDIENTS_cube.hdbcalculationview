@@ -683,6 +683,19 @@
   </calculationView>
   <calculationView xsi:type="Calculation:JoinView" id="RECIPES_n_INGREDIENTS_2" cardinality="C1_N" joinType="leftOuter" multiJoinNode="RECIPES_n_INGREDIENTS" multiJoinCentralTable="Recipes_w_atributes" multiJoinOrder="Outside In">
     <viewAttributes>
+      <viewAttribute id="QTY_ID" aggregationType="sum"/>
+      <viewAttribute id="QTY_MAX" aggregationType="sum"/>
+      <viewAttribute id="QTY_MIN" aggregationType="sum"/>
+      <viewAttribute id="QTY_UNIT"/>
+      <viewAttribute id="QTY_PREP"/>
+      <viewAttribute id="QTY_OPTION"/>
+      <viewAttribute id="INGR_ID" aggregationType="sum"/>
+      <viewAttribute id="INGR_CATEGORY"/>
+      <viewAttribute id="INGR_NAME"/>
+      <viewAttribute id="PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="STORE"/>
+      <viewAttribute id="LOCAL_PRICE_USD" aggregationType="sum"/>
+      <viewAttribute id="QTY_REC_ID"/>
       <viewAttribute id="REC_ID" aggregationType="sum"/>
       <viewAttribute id="REC_TITLE"/>
       <viewAttribute id="REC_SUBTITLE"/>
@@ -734,18 +747,6 @@
       <viewAttribute id="N_PCNT_CAL_PROT" aggregationType="sum"/>
       <viewAttribute id="N_CAL" aggregationType="sum"/>
       <viewAttribute id="MEAL_TYPE"/>
-      <viewAttribute id="QTY_ID" aggregationType="sum"/>
-      <viewAttribute id="QTY_MAX" aggregationType="sum"/>
-      <viewAttribute id="QTY_MIN" aggregationType="sum"/>
-      <viewAttribute id="QTY_UNIT"/>
-      <viewAttribute id="QTY_PREP"/>
-      <viewAttribute id="QTY_OPTION"/>
-      <viewAttribute id="INGR_ID" aggregationType="sum"/>
-      <viewAttribute id="INGR_CATEGORY"/>
-      <viewAttribute id="INGR_NAME"/>
-      <viewAttribute id="PRICE_USD" aggregationType="sum"/>
-      <viewAttribute id="STORE"/>
-      <viewAttribute id="LOCAL_PRICE_USD" aggregationType="sum"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="Recipes_w_atributes">
@@ -814,6 +815,7 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="PRICE_USD" source="PRICE_USD"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="STORE" source="STORE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_PRICE_USD" source="LOCAL_PRICE_USD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTY_REC_ID" source="QTY_REC_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="REC_ID" source="QTY_REC_ID"/>
     </input>
     <joinAttribute name="REC_ID"/>
@@ -1085,141 +1087,141 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="597.2090828454886" y="112"/>
+      <upperLeftCorner x="597" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
     
   
     <shape expanded="true" modelObjectName="Geo" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="272.81574839562757" y="1106.9999916553497"/>
+      <upperLeftCorner x="272" y="1106"/>
       <rectangleSize height="30" width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="Wines" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="482.81574839562757" y="1106.9999916553497"/>
+      <upperLeftCorner x="482" y="1106"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Wines_w_geo" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="384.583737304555" y="966.9999928474426"/>
+      <upperLeftCorner x="384" y="966"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="Geo" modelObjectNameSpace="Wines_w_geo" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="178.08740234375"/>
+      <rectangleSize width="178"/>
     </shape>
     <shape modelObjectName="Wines" modelObjectNameSpace="Wines_w_geo" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="212.92431640625"/>
+      <rectangleSize width="212"/>
     </shape>
     <shape expanded="true" modelObjectName="Recipes" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="594.5837373045551" y="966.9999928474426"/>
+      <upperLeftCorner x="594" y="966"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape expanded="true" modelObjectName="Recipes_w_Wines_w_Geo" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="350.083737304555" y="811.9999940395355"/>
-      <rectangleSize height="30" width="229"/>
-    </shape>
-    <shape modelObjectName="Recipes" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
-      <upperLeftCorner x="344" y="34"/>
-      <rectangleSize width="207.4296875"/>
-    </shape>
-    <shape modelObjectName="Wines_w_geo" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
-      <upperLeftCorner x="29" y="31"/>
-      <rectangleSize width="212.92431640625"/>
-    </shape>
-    <shape modelObjectName="Geo" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
-      <upperLeftCorner x="620" y="30"/>
-      <rectangleSize width="178.08740234375"/>
-    </shape>
     <shape expanded="true" modelObjectName="Authors" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="662.5372115952191" y="811.9999940395355"/>
+      <upperLeftCorner x="662" y="811"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Recipes_w_Authors" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="398.91707063788823" y="671.9999952316284"/>
+      <upperLeftCorner x="398" y="671"/>
       <rectangleSize height="30" width="197"/>
     </shape>
     <shape modelObjectName="Recipes_w_Wines_w_Geo_2" modelObjectNameSpace="Recipes_w_Authors" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="213.958984375"/>
-    </shape>
+      <rectangleSize width="250"/>
+    </shape><shape><upperLeftCorner/><rectangleSize/></shape><shape><upperLeftCorner/><rectangleSize/></shape>
     <shape modelObjectName="Authors" modelObjectNameSpace="Recipes_w_Authors" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="193.56689453125"/>
+      <rectangleSize width="193"/>
     </shape>
     <shape expanded="true" modelObjectName="Nutrition" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="810.0964719489484" y="671.9999952316284"/>
+      <upperLeftCorner x="810" y="671"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Recipes_w_authors" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="721.9999999999998" y="531.9999964237213"/>
+      <upperLeftCorner x="721" y="531"/>
       <rectangleSize height="30" width="207"/>
     </shape>
     <shape modelObjectName="Recipes_w_Authors" modelObjectNameSpace="Recipes_w_authors" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="212.92431640625"/>
+      <rectangleSize width="212"/>
     </shape>
     <shape modelObjectName="Nutrition" modelObjectNameSpace="Recipes_w_authors" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="194.20068359375"/>
+      <rectangleSize width="194"/>
     </shape>
     <shape expanded="true" modelObjectName="Meals" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="511.99999999999983" y="531.9999964237213"/>
+      <upperLeftCorner x="511" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Recipes_w_atributes" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="489.30760167403895" y="391.9999976158142"/>
+      <upperLeftCorner x="489" y="391"/>
       <rectangleSize height="30" width="198"/>
     </shape>
     <shape modelObjectName="Meals" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="212.92431640625"/>
+      <rectangleSize width="212"/>
     </shape>
     <shape modelObjectName="Recipes_w_authors" modelObjectNameSpace="Recipes_w_atributes" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="150.80224609375"/>
+      <rectangleSize width="150"/>
     </shape>
     <shape expanded="true" modelObjectName="Ingredients" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="301.9999999999998" y="531.9999964237213"/>
+      <upperLeftCorner x="301" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Prices" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="92" y="531.9999964237213"/>
+      <upperLeftCorner x="92" y="531"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Ingredients_w_Prices" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="107.66666666666674" y="391.9999976158142"/>
+      <upperLeftCorner x="107" y="391"/>
       <rectangleSize height="30" width="193"/>
     </shape>
     <shape modelObjectName="Ingredients" modelObjectNameSpace="Ingredients_w_Prices" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="180.33251953125"/>
+      <rectangleSize width="180"/>
     </shape>
     <shape modelObjectName="Prices" modelObjectNameSpace="Ingredients_w_Prices" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="191.14990234375"/>
+      <rectangleSize width="191"/>
     </shape>
     <shape expanded="true" modelObjectName="Quantity" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="742.4222160896909" y="391.9999976158142"/>
+      <upperLeftCorner x="742" y="391"/>
       <rectangleSize height="30" width="160"/>
     </shape>
-    <shape expanded="true" modelObjectName="RECIPES_n_INGREDIENTS" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="464.30760167403895" y="236.9999988079071"/>
-      <rectangleSize height="30" width="248"/>
+    <shape expanded="true" modelObjectName="Recipes_w_Wines_w_Geo" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="350" y="811"/>
+      <rectangleSize height="30" width="229"/>
     </shape>
-    <shape modelObjectName="Quantity" modelObjectNameSpace="RECIPES_n_INGREDIENTS" modelObjectType="JoinNodeInput" multiJoinViewNodeName="RECIPES_n_INGREDIENTS">
-      <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="159.34765625"/>
+    <shape modelObjectName="Wines_w_geo" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
+      <upperLeftCorner x="29" y="31"/>
+      <rectangleSize width="212"/>
+    </shape>
+    <shape modelObjectName="Recipes" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
+      <upperLeftCorner x="344" y="34"/>
+      <rectangleSize width="207"/>
+    </shape>
+    <shape modelObjectName="Geo" modelObjectNameSpace="Recipes_w_Wines_w_Geo" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Recipes_w_Wines_w_Geo">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="178"/>
+    </shape>
+    <shape expanded="true" modelObjectName="RECIPES_n_INGREDIENTS" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="464" y="236"/>
+      <rectangleSize height="30" width="248"/>
     </shape>
     <shape modelObjectName="Recipes_w_atributes" modelObjectNameSpace="RECIPES_n_INGREDIENTS" modelObjectType="JoinNodeInput" multiJoinViewNodeName="RECIPES_n_INGREDIENTS">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="212.92431640625"/>
+      <rectangleSize width="212"/>
     </shape>
     <shape modelObjectName="Ingredients_w_Prices" modelObjectNameSpace="RECIPES_n_INGREDIENTS" modelObjectType="JoinNodeInput" multiJoinViewNodeName="RECIPES_n_INGREDIENTS">
       <upperLeftCorner x="620" y="30"/>
-      <rectangleSize width="191.14990234375"/>
+      <rectangleSize width="191"/>
     </shape>
-  </shapes>
+  
+    <shape modelObjectName="Quantity" modelObjectNameSpace="RECIPES_n_INGREDIENTS" modelObjectType="JoinNodeInput" multiJoinViewNodeName="RECIPES_n_INGREDIENTS">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="159"/>
+    </shape></shapes>
 </layout>
 </Calculation:scenario>
