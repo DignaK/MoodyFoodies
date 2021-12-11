@@ -981,18 +981,7 @@
       <keyMapping columnObjectName="RECIPES_n_INGREDIENTS_2" columnName="STORE"/>
     </attribute>
   </attributes>
-  <calculatedAttributes>
-    <calculatedAttribute id="Total_price_with_wine" order="64" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
-      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="20">
-        <formula>&quot;PRICE_USD&quot;+&quot;WINE_PRICE_USD&quot;</formula>
-      </keyCalculation>
-    </calculatedAttribute>
-    <calculatedAttribute id="Total_prep_cook_time" order="65" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
-      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="20">
-        <formula>&quot;PREP_MIN&quot;+&quot;COOK_MIN&quot;</formula>
-      </keyCalculation>
-    </calculatedAttribute>
-  </calculatedAttributes>
+  <calculatedAttributes/>
   <baseMeasures>
     <measure id="SERVINGS" order="4" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Recipe servings"/>
